@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
   try {
-    const rawText = req.body.text;
+    const rawText = req.body.log;  // ✅ ← 修正ポイント！
     const payload = { log: rawText };
 
     const webhookUrl = "https://script.google.com/macros/s/AKfycbyjsm_FhQeSJU7iyR5cYmCeqHeLEtClIgbSRo89fDO_n2nf8ucVHASVtMwlVst5RQEN/exec";
