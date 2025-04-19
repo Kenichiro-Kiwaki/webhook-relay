@@ -1,13 +1,16 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors"); // ✅ ←追加！
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors()); // ✅ ←追加！
 
 app.post("/webhook", async (req, res) => {
   try {
-    const rawText = req.body.log;  // ✅ ← 修正ポイント！
+    const rawText = req.body.log;
     const payload = { log: rawText };
 
     const webhookUrl = "https://script.google.com/macros/s/AKfycbyjsm_FhQeSJU7iyR5cYmCeqHeLEtClIgbSRo89fDO_n2nf8ucVHASVtMwlVst5RQEN/exec";
