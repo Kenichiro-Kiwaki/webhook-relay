@@ -10,11 +10,10 @@ app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
   try {
-    const rawText = req.body.text || req.body.log; // logかtextか両対応
-    const payload = { log: rawText };
+    const rawText = req.body.log || req.body.text; // "log"を優先
+    const payload = { text: rawText }; // Apps Script用に"text"キーに揃える
 
-    // あなたの Apps Script Webhook URL に差し替えてください
-    const webhookUrl = "https://script.google.com/macros/s/AKfycbyjsm_FhQeSJU7iyR5cYmCeqHeLEtClIgbSRo89fDO_n2nf8ucVHASVtMwlVst5RQEN/exec";
+    const webhookUrl = process.env.WEBHOOK_URL;
 
     const response = await axios.post(webhookUrl, payload, {
       headers: { "Content-Type": "application/json" }
@@ -27,6 +26,7 @@ app.post("/webhook", async (req, res) => {
     res.status(500).send("Relay failed");
   }
 });
+
 
 app.get("/", (req, res) => {
   res.send("Webhook relay bot is running");
