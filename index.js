@@ -9,6 +9,7 @@ app.use(cors()); // ← CORS対応ここ！
 app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
+  console.log("🔥 受信したボディ:", req.body);
   try {
     const rawText = req.body.log || req.body.text; // "log"を優先
     const payload = { text: rawText }; // Apps Script用に"text"キーに揃える
