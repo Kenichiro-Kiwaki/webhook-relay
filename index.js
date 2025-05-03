@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors()); // ← CORS対応ここ！
+app.options("/webhook", cors()); // ← これを追加！
 app.use(express.json());
 
 app.post("/webhook", async (req, res) => {
