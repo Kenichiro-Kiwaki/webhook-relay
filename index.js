@@ -12,7 +12,7 @@ app.post("/webhook", async (req, res) => {
   console.log("🔥 受信したボディ:", req.body);
   try {
     const rawText = req.body.log || req.body.text; // "log"を優先
-    const payload = { text: rawText }; // Apps Script用に"text"キーに揃える
+    const payload = { log: rawText }; // Apps Script用に"text"キーに揃える
 
     const webhookUrl = process.env.WEBHOOK_URL;
 
